@@ -28,9 +28,9 @@ module FreshChangeLog
     end
 
     def log_change(action)
-      change_log = ChangeLog.create(:action => action, 
-                                    :model => self.class.model_name,
-                                    :record_id => self.id)
+      change_log = ChangeLog::Protocol.create(:action => action, 
+                                              :model => self.class.model_name,
+                                              :record_id => self.id)
       if action == "update"
         attrs = changed_attributes.delete_if { |k,v| ["updated_at", "created_at"].include?(k) }
       elsif action == "destroy"
